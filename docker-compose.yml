@@ -1,0 +1,22 @@
+version: '3.9'
+services:
+  app:
+    build: .
+    environment:
+      PORT: 5001
+      MONGODB_URI: mongodb://mongo:27017/mpinstitute
+      JWT_SECRET: devsecret
+    ports:
+      - '5001:5001'
+      - '5173:5173'
+    depends_on:
+      - mongo
+  mongo:
+    image: mongo:7
+    restart: always
+    ports:
+      - '27017:27017'
+    volumes:
+      - mongo-data:/data/db
+volumes:
+  mongo-data:
